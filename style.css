@@ -1,0 +1,77 @@
+:root{
+	--col1: #D08770;
+	--col2: #EBCB8B;
+	--col3: #A3BE8C;
+	--col4: #B48EAD;
+}
+body{
+	font-family: 'Oswald', sans-serif;
+	animation: bgpan 10s linear infinite;
+	background: linear-gradient(
+		to right,
+		var(--col1),
+		var(--col2),
+		var(--col3),
+		var(--col4),
+		var(--col1)
+	);
+	height: 100vh;
+	overflow: hidden;
+	margin: 0;
+	background-size: 200%;
+	animation-play-state: running;
+	position: relative;
+}
+body.toggled {
+ 	animation-play-state: paused;
+}
+#tiles{
+	height:  100vh;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(var(--columns), 1fr);
+	grid-template-rows: repeat(var(--rows), 1fr);
+}
+.tile{
+	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.tile_inner{
+	display: block;
+	position: absolute;
+	background: #141414;
+	inset: 2px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+/* .tile::before{
+	display: block;
+	content: "";
+	position: absolute;
+	background: #141414;
+	width: 95%;
+	height: 95%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow-clip-margin: 0px;
+} */
+
+p{
+	white-space: nowrap;
+	color: white;
+	font-size: 60px;
+}
+.tile:hover{
+	opacity: 90%;
+}
+@keyframes bgpan {
+	from{
+		background-position: 0% center;
+	}
+	to{
+		background-position: 200% center;
+	}
+}

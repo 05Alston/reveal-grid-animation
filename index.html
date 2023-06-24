@@ -7,126 +7,12 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
-	<style>
-		:root{
-			--col1: #D08770;
-			--col2: #EBCB8B;
-			--col3: #A3BE8C;
-			--col4: #B48EAD;
-		}
-		body{
-			font-family: 'Oswald', sans-serif;
-			animation: bgpan 10s linear infinite;
-			background: linear-gradient(
-				to right,
-				var(--col1),
-				var(--col2),
-				var(--col3),
-				var(--col4),
-				var(--col1)
-			);
-			height: 100vh;
-			overflow: hidden;
-			margin: 0;
-			background-size: 200%;
-			animation-play-state: running;
-			position: relative;
-		}
-		body.toggled {
-		 	animation-play-state: paused;
-		}
-		#tiles{
-			height:  100vh;
-			width: 100%;
-			display: grid;
-			grid-template-columns: repeat(var(--columns), 1fr);
-			grid-template-rows: repeat(var(--rows), 1fr);
-		}
-		.tile{
-			position: relative;
-			cursor: pointer;
-		}
-		.tile::before{
-			content: "";
-			background: #141414;
-			position: absolute;
-			inset: 1px;
-		}
-		.tile:hover{
-			opacity: 97%;
-		}
-		.text{
-			z-index: 100;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			user-select: none;
-			font-size: 60px;
-			font-weight: 600;
-			pointer-events: none;
-			color: white;
-		}
-		@keyframes bgpan {
-			from{
-				background-position: 0% center;
-			}
-			to{
-				background-position: 200% center;
-			}
-		}
-	</style>
+	<link href="style.css" rel="stylesheet">
+	<script src="app.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 </head>
 <body>
-	<div class="text">
-		<p>Hey There</p>
-		<p>I'm Alston</p>	
-	</div>
 	<div id="tiles">
 	</div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript">
-	let wrapper = document.getElementById('tiles');
-	let columns = Math.floor(document.body.clientWidth / 50),
-		rows = Math.floor(document.body.clientHeight / 50);
-	const colors = ["#BF616A","#D08770","#EBCB8B","#A3BE8C","#B48EAD"];
-	let toggled = false;
-	const handleOnclick = index => {
-		toggled = !toggled;
-		document.body.classList.toggle("toggled");
-		anime({
-		    targets: ".tile",
-		    opacity: toggled ? 0 : 1,
-		    delay: anime.stagger(50, {
-		      grid: [columns, rows],
-		      from: index
-		    })
-		});
-	}
-	const createTile = index => {
-		const tile = document.createElement("div");
-		tile.classList.add("tile");
-		tile.onclick = e => handleOnclick(index);
-		return tile;
-	}
-
-	const createTiles = quantity => {
-		Array.from(Array(quantity)).map((tile, index) => {
-			wrapper.appendChild(createTile(index));
-		})
-	}
-	const createGrid = () => {
-		wrapper.innerHTML = "";
-		columns = Math.floor(document.body.clientWidth / 50);
-		rows = Math.floor(document.body.clientHeight / 50);
-
-		wrapper.style.setProperty("--columns", columns);
-		wrapper.style.setProperty("--rows", rows);
-		createTiles(columns * rows);
-	}
-
-	createGrid();
-	window.onresize = () => createGrid();
-</script>
 </html>
